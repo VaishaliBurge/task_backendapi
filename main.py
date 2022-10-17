@@ -51,5 +51,5 @@ def  get_recepie_detail(title:str):
         if s["title"] == title:
             details = data[i]
        
-    return details if details else None
+    return [details] if details else None
 
