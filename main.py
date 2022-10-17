@@ -7,9 +7,20 @@ import contentful
 import json
 import re
 import os
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 app = FastAPI(docs_url="/api/docs")
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def docs_redirect():
@@ -59,5 +70,5 @@ def  get_recipe_detail(title:str):
         if s["title"] == title:
             details = data[i]
        
-    return details if details else None
+    return [details] if details else None
 
